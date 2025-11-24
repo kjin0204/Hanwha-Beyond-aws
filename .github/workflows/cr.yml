@@ -37,11 +37,11 @@ jobs:
 
       ###############################################
 
-      # envsubst 설치
+      # envsubst 설치 (CI 환경에서 gettext 패키지 설치를 위해 필요)
       - name: Install envsubst
         run: sudo apt-get install -y gettext
 
-      # MariaDB 데이터베이스 연결을 위한 application.yml 파일을 환경 변수로 생성
+      # application.yml.template 생성: 테스트 시 디비 연결정보를 주입하기 위해 사용
       - name: Create application.yml.template
         run: |
           mkdir -p src/main/resources
@@ -86,8 +86,8 @@ jobs:
       ###############################################
 
       - name: Build with Gradle
-        run: ./gradlew clean build -x test
-#        run: ./gradlew clean build
+#        run: ./gradlew clean build -x test
+        run: ./gradlew clean build
         shell: bash
 
       - name: Get current time
